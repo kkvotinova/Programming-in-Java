@@ -82,9 +82,9 @@ public class Matrix {
         if (this.n != this.m) {
             throw new ArithmeticException("Matrix must be square");
         } else {
-            if (this.m == 2){
+            if (this.m == 2){ // if matrix have 4 elements
                 return this.A[0][0]*this.A[1][1] - this.A[0][1]*this.A[1][0];
-            } else {
+            } else { // if > 2
                 int sum = 0;
                 for (int i = 0; i < this.m; i++) {
                     Matrix matrix = new Matrix(this.n - 1, this.m - 1);
