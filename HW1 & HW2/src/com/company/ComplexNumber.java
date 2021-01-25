@@ -12,7 +12,7 @@ public class ComplexNumber {
         this.mnin = mnin;
     }
 
-   // the addition of two complex numbers
+    // the addition of two complex numbers
     public ComplexNumber sumOfNumbers(ComplexNumber number) {
         return new ComplexNumber(this.real + number.real, this.mnin + number.mnin);
     }
