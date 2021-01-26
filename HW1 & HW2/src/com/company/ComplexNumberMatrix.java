@@ -1,74 +1,78 @@
-//  Copyright © 2021 Ksuvot
 package com.company;
 
-public class Matrix {
+public class ComplexNumberMatrix {
     private int n; // number of columns
     private int m; // number of rows
-    private int[][] A; // matrix
+    private ComplexNumber[][] A; // matrix
 
-    public Matrix() { }
+    public ComplexNumberMatrix() { }
 
-    public Matrix(int m, int n) {
+    public ComplexNumberMatrix(int m, int n) {
         this.n = n;
         this.m = m;
-        this.A = new int[m][n];
+        this.A = new ComplexNumber[m][n];
     }
 
-    public Matrix(int[][] A) {
+    public ComplexNumberMatrix(ComplexNumber[][] A) {
         this.m = A.length;
         this.n = A[0].length;
         this.A = A;
     }
 
     // the addition of two matrix
-    public Matrix sumOfMatrix(Matrix matrix) {
+    public ComplexNumberMatrix sumOfMatrix(ComplexNumberMatrix matrix) {
         if (this.n != matrix.n || this.m != matrix.m) {
             throw new ArithmeticException("The matrices have different sizes");
         } else {
-            Matrix answer = new Matrix(matrix.m, matrix.n);
+            ComplexNumber[][] array = new ComplexNumber[matrix.m][matrix.n];
             for (int i = 0; i < this.m; i++) {
                 for (int j = 0; j < this.n; j++) {
-                    answer.setElement(i, j, this.getElement(i, j) + matrix.getElement(i, j));
+                    array[i][j] = this.A[i][j].sumOfNumbers(matrix.A[i][j]);
                 }
             }
-            return answer;
+            return new ComplexNumberMatrix(array);
         }
     }
 
     // the subtraction of two matrix
-    public Matrix subOfMatrix(Matrix matrix) {
+    public ComplexNumberMatrix subOfMatrix(ComplexNumberMatrix matrix) {
         if (this.n != matrix.n || this.m != matrix.m) {
             throw new ArithmeticException("The matrices have different sizes");
         } else {
-            Matrix answer = new Matrix(matrix.m, matrix.n);
+            ComplexNumber[][] array = new ComplexNumber[matrix.m][matrix.n];
             for (int i = 0; i < this.m; i++) {
                 for (int j = 0; j < this.n; j++) {
-                    answer.setElement(i, j, this.getElement(i, j) - matrix.getElement(i, j));
+                    array[i][j] = this.A[i][j].subOfNumbers(matrix.A[i][j]);
                 }
             }
-            return answer;
+            return new ComplexNumberMatrix(array);
         }
     }
 
     // the multiplication of two matrix
-    public Matrix multiOfMatrix(Matrix matrix) {
+    public ComplexNumberMatrix multiOfMatrix(ComplexNumberMatrix matrix) {
         if (this.n != matrix.m) {
             throw new ArithmeticException("The matrices have different sizes");
         }
-        int[][] answer = new int[this.m][matrix.n];
+        ComplexNumber[][] array = new ComplexNumber[this.m][matrix.n];
+        for (int i = 0; i < this.m; i++) {
+            for (int j = 0; j < this.n; j++) {
+                array[i][j] = new ComplexNumber(0.0, 0.0);
+            }
+        }
         for (int i = 0; i < this.m; i++) { // go through the rows of the 1st matrix
             for (int j = 0; j < matrix.n; j++) { // go through the columns of the 2nd matrix
                 for (int k = 0; k < matrix.m; k++) { // go through the rows of the 2nd matrix
-                    answer[i][j] += this.A[i][k] * matrix.A[k][j];
+                    array[i][j] = array[i][j].sumOfNumbers(this.A[i][k].multiOfNumbers(matrix.A[k][j]));
                 }
             }
         }
-        return new Matrix(answer);
+        return new ComplexNumberMatrix(array);
     }
 
     // the transpose of the matrix
-    public Matrix transposeOfMatrix() {
-        Matrix answer = new Matrix(this.n, this.m);
+    public ComplexNumberMatrix transposeOfMatrix() {
+        ComplexNumberMatrix answer = new ComplexNumberMatrix(this.n, this.m);
         for (int i = 0; i < this.m; i++) {
             for (int j = 0; j < this.n; j++) {
                 answer.setElement(j, i, this.getElement(i, j));
@@ -78,16 +82,17 @@ public class Matrix {
     }
 
     // the determinant of a matrix
-    public double findDeterminantOfMatrix() {
+    public ComplexNumber findDeterminantOfMatrix() {
         if (this.n != this.m) {
             throw new ArithmeticException("Matrix must be square");
         } else {
             if (this.m == 2){ // if matrix have 4 elements
-                return this.A[0][0]*this.A[1][1] - this.A[0][1]*this.A[1][0];
+                return this.A[0][0].multiOfNumbers(this.A[1][1])
+                        .subOfNumbers(this.A[0][1].multiOfNumbers(this.A[1][0]));
             } else { // if > 2
-                int sum = 0;
+                ComplexNumber sum = new ComplexNumber(0.0, 0.0);
                 for (int i = 0; i < this.m; i++) {
-                    Matrix matrix = new Matrix(this.n - 1, this.m - 1);
+                    ComplexNumberMatrix matrix = new ComplexNumberMatrix(this.n - 1, this.m - 1);
                     int tmpI = 0;
                     int tmpJ = 0;
                     for (int j = 1; j < this.n; j++){
@@ -103,10 +108,10 @@ public class Matrix {
                         }
                     }
                     if (i % 2 == 0) {
-                        sum += this.A[0][i] * matrix.findDeterminantOfMatrix();
+                        sum = sum.sumOfNumbers(this.A[0][i].multiOfNumbers(matrix.findDeterminantOfMatrix()));
                     }
                     else {
-                        sum -= this.A[0][i] * matrix.findDeterminantOfMatrix();
+                        sum = sum.sumOfNumbers(this.A[0][i].multiOfNumbers(matrix.findDeterminantOfMatrix()));
                     }
                 }
                 return sum;
@@ -122,11 +127,11 @@ public class Matrix {
         this.m = m;
     }
 
-    public int[][] getA() {
+    public ComplexNumber[][] getA() {
         return A;
     }
 
-    public void setA(int[][] A) {
+    public void setA(ComplexNumber[][] A) {
         this.A = A;
     }
 
@@ -138,18 +143,19 @@ public class Matrix {
         this.n = n;
     }
 
-    public int getElement(int m, int n) {
+    public ComplexNumber getElement(int m, int n) {
         return this.A[m][n];
     }
 
-    public void setElement(int m, int n, int num) {
+    public void setElement(int m, int n, ComplexNumber num) {
         this.A[m][n] = num;
     }
 
     public void printMatrix() {
         for (int i = 0; i < this.m; i++) {
             for (int j = 0; j < this.n; j++) {
-                System.out.println(this.A[i][j] + " ");
+                this.A[i][j].printNumber();
+                System.out.print(" ");
             }
             System.out.println();
         }

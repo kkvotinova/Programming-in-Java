@@ -60,11 +60,11 @@ public class ComplexNumber {
     // printing complex numbers to the console in algebraic form
     public void printNumber() {
         if (this.mnin == 0) {
-            System.out.println(this.real);
+            System.out.print(this.real);
         } else if (this.mnin >= 0) {
-            System.out.println(this.real + "+" + this.mnin + "i");
+            System.out.print(this.real + "+" + this.mnin + "i");
         } else {
-            System.out.println(this.real + "" + this.mnin + "i");
+            System.out.print(this.real + "" + this.mnin + "i");
         }
     }
 
