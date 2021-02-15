@@ -21,7 +21,7 @@ public class Main {
     static void readFile(String path) {
         try(FileReader reader = new FileReader(path)) {
             Scanner scanner = new Scanner(reader);
-            short[] alphabet = new short[26];
+            int[] alphabet = new int[26];
 
             while (scanner.hasNextLine()) {
                 String string = scanner.nextLine();
@@ -45,10 +45,10 @@ public class Main {
         }
     }
 
-    static void writeFile(short[] alphabet) {
+    static void writeFile(int[] alphabet) {
         Path path = Paths.get("src\\resources\\output.txt").toAbsolutePath();
         try(FileWriter writer = new FileWriter(path.toString())) {
-            for (short i = 0; i < 26; i++) {
+            for (int i = 0; i < 26; i++) {
                 writer.append((char)(65 + i) + " " + (char)(97 + i) + " - " + alphabet[i] + "\n");
             }
             writer.close();
