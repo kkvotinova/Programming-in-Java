@@ -1,37 +1,37 @@
 package com.company;
 
 public class Human {
-    private String firstName = new String();
-    private String lastName = new String();
-    private String patronymic = new String();
+    private String firstName;
+    private String lastName;
+    private String patronymic;
 
-    private String data = new String(); // DD.MM.YYYY
-    private String zodiacSign = new String();
+    private String data; // DD.MM.YYYY
+    private String zodiacSign;
 
-    private int day = 0;
-    private int month = 0;
-    private int year = 0;
+    private int day;
+    private int month;
+    private int year;
 
     public void split(String string, String delimiter) {
         byte choice = 1;
         for (String word : string.split(delimiter)) {
             switch (choice) {
                 case 1:
-                    if (delimiter == " ") {
+                    if (delimiter.equals(" ")) {
                         lastName = word;
                     } else {
                         day = Integer.parseInt(word);
                     }
                     break;
                 case 2:
-                    if (delimiter == " ") {
+                    if (delimiter.equals(" ")) {
                         firstName = word;
                     } else {
                         month = Integer.parseInt(word);
                     }
                     break;
                 case 3:
-                    if (delimiter == " ") {
+                    if (delimiter.equals(" ")) {
                         patronymic = word;
                     } else {
                         year = Integer.parseInt(word);
@@ -52,33 +52,20 @@ public class Human {
         if (month > 12) {
             return false;
         } else if (month == 2) { // february
-            if (year % 400 == 0) {
-                if (this.day > 29) {
-                    return false;
-                }
-            } else if (year % 100 != 0 && year % 4 == 0) {
-                if (this.day > 29) {
-                    return false;
-                }
-            } else {
-                if (this.day > 28) {
-                    return false;
-                }
-            }
-        } else if (month == 4 || month == 6 || month == 9 || month == 11) { // april june september november
-            if (this.day > 30) {
+            if (year % 400 == 0 && this.day > 29) {
                 return false;
-            }
-        } else if (month == 1 || month == 3 || month == 5 || month == 7
-                || month == 8 || month == 10 || month == 12) { // others
-            if (day > 31) {
+            } else if ((year % 100 != 0 && year % 4 == 0) && (this.day > 29)) {
                 return false;
-            }
-        }
-        return true;
+            } else return this.day <= 28;
+        } else
+            if ((month == 4 || month == 6 || month == 9 || month == 11)
+                && (this.day > 30)) { // april june september november
+            return false;
+        } else return (month != 1 && month != 3 && month != 5 && month != 7
+                    && month != 8 && month != 10 && month != 12) || (day <= 31); // others
     }
 
-    public String determiningZodiacSign() {
+    public void determiningZodiacSign() {
         switch (month) {
             case 1:
                 if (day <= 19) {
@@ -168,70 +155,22 @@ public class Human {
                 System.out.println("WRONG!");
                 break;
         }
-        return zodiacSign;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPatronymic() {
-        return patronymic;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
     }
 
     public String getData() {
         return data;
     }
 
-    public void setData(String data) {
-        this.data = data;
-    }
+    public void answer() {
+        System.out.println("Name: " + lastName + " " + firstName.toCharArray()[0]
+                + "." + patronymic.toCharArray()[0] + ".");
 
-    public String getZodiacSign() {
-        return zodiacSign;
-    }
+        String gender = (patronymic.toCharArray()[patronymic.length() - 1] == 'ч') ? "Мужчина" : "Женщина";
+        System.out.println("Gender: " + gender);
 
-    public void setZodiacSign(String zodiacSign) {
-        this.zodiacSign = zodiacSign;
-    }
+        System.out.println("Age: "); // TODO
 
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
+        determiningZodiacSign();
+        System.out.println("Zodiac sign: " + zodiacSign);
     }
 }
