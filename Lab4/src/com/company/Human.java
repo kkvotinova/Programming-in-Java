@@ -5,6 +5,7 @@ public class Human {
     private String lastName = new String();
     private String patronymic = new String();
 
+    private String data = new String(); // DD.MM.YYYY
     private String zodiacSign = new String();
 
     private int day = 0;
@@ -31,10 +32,13 @@ public class Human {
                     break;
                 case 3:
                     if (delimiter == " ") {
-                        patronymic = word;;
+                        patronymic = word;
                     } else {
                         year = Integer.parseInt(word);
                     }
+                    break;
+                case 4:
+                    data = word;
                     break;
                 default:
                     System.out.println("WRONG!");
@@ -165,5 +169,69 @@ public class Human {
                 break;
         }
         return zodiacSign;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getZodiacSign() {
+        return zodiacSign;
+    }
+
+    public void setZodiacSign(String zodiacSign) {
+        this.zodiacSign = zodiacSign;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 }
