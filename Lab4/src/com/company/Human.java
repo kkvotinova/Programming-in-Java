@@ -15,77 +15,62 @@ public class Human {
             switch (choice) {
                 case 1:
                     if (delimiter == " ") {
-                        this.lastName = word;
+                        lastName = word;
                     } else {
-                        this.day = Integer.parseInt(word);
+                        day = Integer.parseInt(word);
                     }
                     break;
                 case 2:
                     if (delimiter == " ") {
-                        this.firstName = word;
+                        firstName = word;
                     } else {
-                        this.month = Integer.parseInt(word);
+                        month = Integer.parseInt(word);
                     }
                     break;
                 case 3:
                     if (delimiter == " ") {
-                        this.patronymic = word;;
+                        patronymic = word;;
                     } else {
-                        this.year = Integer.parseInt(word);
+                        year = Integer.parseInt(word);
                     }
                     break;
                 default:
+                    System.out.println("WRONG!");
                     break;
             }
             ++choice;
         }
     }
 
-    public String getFirstName() {
-        return firstName;
+    public boolean checkDate() {
+        if (month > 12) {
+            return false;
+        } else if (month == 2) { // february
+            if (year % 400 == 0) {
+                if (this.day > 29) {
+                    return false;
+                }
+            } else if (year % 100 != 0 && year % 4 == 0) {
+                if (this.day > 29) {
+                    return false;
+                }
+            } else {
+                if (this.day > 28) {
+                    return false;
+                }
+            }
+        } else if (month == 4 || month == 6 || month == 9 || month == 11) { // april june september november
+            if (this.day > 30) {
+                return false;
+            }
+        } else if (month == 1 || month == 3 || month == 5 || month == 7
+                || month == 8 || month == 10 || month == 12) { // others
+            if (day > 31) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPatronymic() {
-        return patronymic;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(byte day) {
-        this.day = day;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(byte month) {
-        this.month = month;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(byte year) {
-        this.year = year;
-    }
 }
