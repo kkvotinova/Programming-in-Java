@@ -5,6 +5,8 @@ public class Human {
     private String lastName = new String();
     private String patronymic = new String();
 
+    private String zodiacSign = new String();
+
     private int day = 0;
     private int month = 0;
     private int year = 0;
@@ -72,5 +74,96 @@ public class Human {
         return true;
     }
 
-
+    public String determiningZodiacSign() {
+        switch (month) {
+            case 1:
+                if (day <= 19) {
+                    zodiacSign = "Козерог";
+                } else {
+                    zodiacSign = "Водолей";
+                }
+                break;
+            case 2:
+                if (day <= 18) {
+                    zodiacSign = "Водолей";
+                } else {
+                    zodiacSign = "Рыбы";
+                }
+                break;
+            case 3:
+                if (day <= 20) {
+                    zodiacSign = "Рыбы";
+                } else {
+                    zodiacSign = "Овен";
+                }
+                break;
+            case 4:
+                if (day <= 19) {
+                    zodiacSign = "Овен";
+                } else {
+                    zodiacSign = "телец";
+                }
+                break;
+            case 5:
+                if (day <= 20) {
+                    zodiacSign = "Телец";
+                } else {
+                    zodiacSign = "Близнецы";
+                }
+                break;
+            case 6:
+                if (day <= 20) {
+                    zodiacSign = "Близнецы";
+                } else {
+                    zodiacSign = "Рак";
+                }
+                break;
+            case 7:
+                if (day <= 22) {
+                    zodiacSign = "Рак";
+                } else {
+                    zodiacSign = "Лев";
+                }
+                break;
+            case 8:
+                if (day <= 22) {
+                    zodiacSign = "Лев";
+                } else {
+                    zodiacSign = "Дева";
+                }
+                break;
+            case 9:
+                if (day <= 22) {
+                    zodiacSign = "Дева";
+                } else {
+                    zodiacSign = "Весы";
+                }
+                break;
+            case 10:
+                if (day <= 22) {
+                    zodiacSign = "Весы";
+                } else {
+                    zodiacSign = "Скорпион";
+                }
+                break;
+            case 11:
+                if (day <= 21) {
+                    zodiacSign = "Скорпион";
+                } else {
+                    zodiacSign = "Стрелец";
+                }
+                break;
+            case 12:
+                if (day <= 21) {
+                    zodiacSign = "Стрелец";
+                } else {
+                    zodiacSign = "Козерог";
+                }
+                break;
+            default:
+                System.out.println("WRONG!");
+                break;
+        }
+        return zodiacSign;
+    }
 }
