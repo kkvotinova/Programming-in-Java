@@ -214,16 +214,15 @@ public class Human {
         return string1;
     }
 
-    public void answer() {
-        System.out.println("Name: " + lastName + " " + firstName.toCharArray()[0]
-                + "." + patronymic.toCharArray()[0] + ".");
-
+    @Override
+    public String toString() {
         String gender = (patronymic.toCharArray()[patronymic.length() - 1] == 'ч') ? "Мужчина" : "Женщина";
-        System.out.println("Gender: " + gender);
-
         determiningZodiacSign();
-        System.out.println("Age: " + countAge());
 
-        System.out.println("Zodiac sign: " + zodiacSign);
+        return "Name: " + lastName + " " + firstName.toCharArray()[0]
+                + "." + patronymic.toCharArray()[0] + "." + "\n" +
+                "Gender: " + gender + "\n" +
+                "Age: " + countAge() + "\n" +
+                "Zodiac sign: " + zodiacSign + "\n";
     }
 }

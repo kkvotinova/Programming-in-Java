@@ -20,6 +20,6 @@ public class Main {
             throw new IllegalArgumentException("Invalid date!");
         }
 
-        person.answer();
+        System.out.println(person.toString());
     }
 }
