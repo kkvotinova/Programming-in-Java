@@ -1,5 +1,9 @@
 package com.company;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Human {
     private String firstName;
     private String lastName;
@@ -20,21 +24,33 @@ public class Human {
                     if (delimiter.equals(" ")) {
                         lastName = word;
                     } else {
-                        day = Integer.parseInt(word);
+                        try {
+                            day = Integer.parseInt(word);
+                        } catch (NumberFormatException e) {
+                            System.err.println("Wrong format of the string!");
+                        }
                     }
                     break;
                 case 2:
                     if (delimiter.equals(" ")) {
                         firstName = word;
                     } else {
-                        month = Integer.parseInt(word);
+                        try {
+                            month = Integer.parseInt(word);
+                        } catch (NumberFormatException e) {
+                            System.err.println("Wrong format of the string!");
+                        }
                     }
                     break;
                 case 3:
                     if (delimiter.equals(" ")) {
                         patronymic = word;
                     } else {
-                        year = Integer.parseInt(word);
+                        try {
+                            year = Integer.parseInt(word);
+                        } catch (NumberFormatException e) {
+                            System.err.println("Wrong format of the string!");
+                        }
                     }
                     break;
                 case 4:
@@ -161,6 +177,43 @@ public class Human {
         return data;
     }
 
+    public String countAge() {
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        Date date = new Date();
+        String currentData = dateFormat.format(date);
+
+        // person date
+        int newDay = day;
+        int newMonth = month;
+        int newYear = year;
+
+        split(currentData, "\\.");
+
+        int age;
+        if (newMonth < month) {
+            age = year - newYear;
+        } else if (newMonth > month) {
+            age = year - newYear - 1;
+        }  else {
+            if (newDay <= day) {
+                age = year - newYear;
+            } else {
+                age = year - newYear - 1;
+            }
+        }
+
+        String string1;
+        if (age % 10 == 1) {
+            string1 = age + " год";
+        } else if (age % 10 > 1 && age % 10 < 5) {
+            string1 = age + " года";
+        } else {
+            string1 = age + " лет";
+        }
+
+        return string1;
+    }
+
     public void answer() {
         System.out.println("Name: " + lastName + " " + firstName.toCharArray()[0]
                 + "." + patronymic.toCharArray()[0] + ".");
@@ -168,9 +221,9 @@ public class Human {
         String gender = (patronymic.toCharArray()[patronymic.length() - 1] == 'ч') ? "Мужчина" : "Женщина";
         System.out.println("Gender: " + gender);
 
-        System.out.println("Age: "); // TODO
-
         determiningZodiacSign();
+        System.out.println("Age: " + countAge());
+
         System.out.println("Zodiac sign: " + zodiacSign);
     }
 }
