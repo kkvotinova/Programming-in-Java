@@ -15,8 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
-import project.brain.ElevatorControl;
-import project.brain.Request;
 
 public class HomePageController {
 
