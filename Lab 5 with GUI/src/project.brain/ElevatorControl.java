@@ -4,6 +4,9 @@
 
 package project.brain;
 
+import controller.MainPageController;
+import controller.MainPageController2;
+
 import java.util.ArrayList;
 
 public class ElevatorControl implements Runnable {
@@ -11,6 +14,9 @@ public class ElevatorControl implements Runnable {
     private int numberFloorsInBuilding;
     private final ArrayList<Elevator> listOfElevators = new ArrayList<>();
     private final ArrayList<Passenger> listOfPassengers = new ArrayList<>();
+    private MainPageController mainPageController = new MainPageController();
+    private MainPageController2 mainPageController2 = new MainPageController2();
+    private int choiceMode;
 
     public ElevatorControl(int numberAvailableSeatsInElevator, int numberFloorsInBuilding, int numberElevatorsInBuilding) {
         setNumberAvailableSeatsInElevator(numberAvailableSeatsInElevator);
@@ -117,6 +123,37 @@ public class ElevatorControl implements Runnable {
                 };
                 System.out.println("{ id } " + elevator.getId() + " { current floor } " + elevator.getCurrentFloor() +
                         " { direction } " + elevatorDirection + " { passenger number } " + elevator.getListOfPassengers().size());
+
+                if (choiceMode == 1) {
+                    if (elevator.getId() == 0) {
+                        if (elevatorDirection.equals("↓"))
+                            mainPageController.getFirstElevator().setY(mainPageController.getFirstElevator().getY() + 75);
+                        else if (elevatorDirection.equals("↑"))
+                            mainPageController.getFirstElevator().setY(mainPageController.getFirstElevator().getY() - 75);
+                    } else {
+                        if (elevatorDirection.equals("↓"))
+                            mainPageController.getSecondElevator().setY(mainPageController.getSecondElevator().getY() + 75);
+                        else if (elevatorDirection.equals("↑"))
+                            mainPageController.getSecondElevator().setY(mainPageController.getSecondElevator().getY() - 75);
+                    }
+                } else {
+                    if (elevator.getId() == 0) {
+                        if (elevatorDirection.equals("↓"))
+                            mainPageController2.getFirstElevator().setY(mainPageController2.getFirstElevator().getY() + 53);
+                        else if (elevatorDirection.equals("↑"))
+                            mainPageController2.getFirstElevator().setY(mainPageController2.getFirstElevator().getY() - 53);
+                    } else if (elevator.getId() == 1) {
+                        if (elevatorDirection.equals("↓"))
+                            mainPageController2.getSecondElevator().setY(mainPageController2.getSecondElevator().getY() + 53);
+                        else if (elevatorDirection.equals("↑"))
+                            mainPageController2.getSecondElevator().setY(mainPageController2.getSecondElevator().getY() - 53);
+                    } else if (elevator.getId() == 2) {
+                        if (elevatorDirection.equals("↓"))
+                            mainPageController2.getThirdElevator().setY(mainPageController2.getThirdElevator().getY() + 53);
+                        else if (elevatorDirection.equals("↑"))
+                            mainPageController2.getThirdElevator().setY(mainPageController2.getThirdElevator().getY() - 53);
+                    }
+                }
             }
             try {
                 Thread.sleep(2000);
@@ -156,5 +193,17 @@ public class ElevatorControl implements Runnable {
 
     public void setListOfPassengers(Passenger listOfPassengers) {
         this.listOfPassengers.add(listOfPassengers);
+    }
+
+    public void setMainPageController(MainPageController mainPageController) {
+        this.mainPageController = mainPageController;
+    }
+
+    public void setMainPageController2(MainPageController2 mainPageController2) {
+        this.mainPageController2 = mainPageController2;
+    }
+
+    public void setChoiceMode(int choiceMode) {
+        this.choiceMode = choiceMode;
     }
 }

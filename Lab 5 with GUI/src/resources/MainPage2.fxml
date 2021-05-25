@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,20 +15,30 @@
             <font>
                 <Font name="Arial Rounded MT Bold" size="40.0" />
             </font></Text>
-        <ImageView fx:id="House" fitHeight="475.0" fitWidth="370.0" layoutX="36.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="House" fitHeight="475.0" fitWidth="593.0" layoutX="-120.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@5floor.png" />
+                <Image url="@7floor.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="firstElevator" fitHeight="57.0" fitWidth="45.0" layoutX="56.0" layoutY="486.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@elevator.png" />
-            </image>
-        </ImageView>
-        <ImageView fx:id="secondElevator" fitHeight="57.0" fitWidth="45.0" layoutX="332.0" layoutY="486.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="firstElevator" fitHeight="46.0" fitWidth="33.0" layoutX="311.0" layoutY="501.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@elevator.png" />
             </image>
         </ImageView>
+        <ImageView fx:id="secondElevator" fitHeight="46.0" fitWidth="33.0" layoutX="18.0" layoutY="501.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@elevator.png" />
+            </image>
+        </ImageView>
+      <ImageView fx:id="thirdElevator" fitHeight="46.0" fitWidth="33.0" layoutX="367.0" layoutY="501.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@elevator.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="startButton" layoutX="339.0" layoutY="24.0" mnemonicParsing="false" text="Start">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="15.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

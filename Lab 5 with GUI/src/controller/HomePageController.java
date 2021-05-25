@@ -40,18 +40,11 @@ public class HomePageController {
         startButton.setOnAction(actionEvent -> {
             startButton.getScene().getWindow().hide();
 
-            ElevatorControl elevatorControl;
-            Request request;
-
             FXMLLoader fxmlLoader = new FXMLLoader();
             if (firstModeChoice.isSelected()) {
                 fxmlLoader.setLocation(getClass().getResource("/resources/MainPage.fxml"));
-                elevatorControl = new ElevatorControl(3, 5, 2);
-                request = new Request(5, 11, elevatorControl);
             } else {
                 fxmlLoader.setLocation(getClass().getResource("/resources/MainPage2.fxml"));
-                elevatorControl = new ElevatorControl(4, 7, 3);
-                request = new Request(7, 15, elevatorControl);
             }
             try {
                 fxmlLoader.load();
@@ -59,15 +52,14 @@ public class HomePageController {
                 e.printStackTrace();
             }
 
-            Thread requestsThread = new Thread(request);
-            Thread elevatorsThread = new Thread(elevatorControl);
-            requestsThread.start();
-            elevatorsThread.start();
-
             Parent parent = fxmlLoader.getRoot();
             Stage stage = new Stage();
             stage.setScene(new Scene(parent));
             stage.showAndWait();
+
+            if (!stage.isShowing()) {
+                System.exit(0);
+            }
         });
     }
 }
